@@ -1,0 +1,84 @@
+name: Export Notion Index to JSON
+
+on:
+  schedule:
+    # Corre a las 02:30 UTC de Lunes a Viernes (GitHub Actions usa UTC)
+    # Madrid ≈ UTC+1 en invierno / +2 en verano → 03:30/04:30 locales
+    - cron: '30 2 * * 1-5'
+  workflow_dispatch: {}   # permitir lanzamiento manual
+  push:
+    paths:
+      - 'scripts/export_notion_to_json.py'
+      - '.github/workflows/export-notion.yml'
+      - 'requirements.txt'
+
+permissions:
+  contents: write    # para poder hacer commit/push del JSON
+  actions: read
+  id-token: none
+
+jobs:
+  export:
+    runs-on: ubuntu-latest
+    env:
+      NOTION_API_KEY: ${{ secrets.NOTION_API_KEY }}
+      NOTION_DB_ID: ${{ secrets.NOTION_DB_ID }}
+      TZ: Europe/Madrid   # solo para timestamps locales dentro del job si lo usas
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+
+      - name: Cache pip
+        uses: actions/cache@v4
+        with:
+          path: ~/.cache/pip
+          key: pip-${{ runner.os }}-${{ hashFiles('requirements.txt') }}
+          restore-keys: |
+            pip-${{ runner.os }}-
+
+      - name: Install deps
+        run: pip install -r requirements.txt
+
+      - name: Run export script
+        id: run_export
+        run: |
+          python scripts/export_notion_to_json.py
+          # Detecta el último JSON creado por el script
+          OUTFILE=$(ls -t Notion_TechDocs_Index_*.json | head -n 1)
+          echo "outfile=$OUTFILE" >> "$GITHUB_OUTPUT"
+
+      - name: Validate JSON (basic)
+        run: |
+          python -c "import json,sys; json.load(open('${{ steps.run_export.outputs.outfile }}')); print('OK JSON')"
+
+      - name: Save as artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: notion-techdocs-json
+          path: ${{ steps.run_export.outputs.outfile }}
+          retention-days: 30
+
+      - name: Commit JSON into repo (/data)
+        run: |
+          mkdir -p data
+          cp "${{ steps.run_export.outputs.outfile }}" "data/${{ steps.run_export.outputs.outfile }}"
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git add data/
+          # Solo hace commit si hay cambios
+          git diff --cached --quiet || git commit -m "chore(data): add ${{ steps.run_export.outputs.outfile }}"
+          # Evita fallar si no hay cambios
+          git push || true
+
+      # Opcional: crear tag mensual con el último índice
+      - name: Create monthly tag (optional)
+        if: ${{ always() }}
+        run: |
+          TAG="notion-index-$(date +'%Y-%m')"
+          git tag -f "$TAG" || true
+          git push -f origin "$TAG" || true
