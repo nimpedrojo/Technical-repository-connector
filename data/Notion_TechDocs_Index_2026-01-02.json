@@ -1,0 +1,63 @@
+{
+  "schema_version": "1.0",
+  "exported_at": "2026-01-02T04:51:38.130364+01:00",
+  "source": "Notion DB 29cb1a8ed80880fca039e8af8af242a3",
+  "documents": [
+    {
+      "doc_id": "29cb1a8e-d808-8023-a0b5-f3df3aa59ae1",
+      "title": "Definicion del proceso de evaluacion del uso de IA",
+      "version": "v1.0",
+      "area": "Sin área",
+      "type": "Documento",
+      "owner": "Technical Governance Team",
+      "tags": [],
+      "confidentiality": "Interno",
+      "last_updated": "2025-10-30",
+      "drive_link": "https://docs.google.com/presentation/d/1dbG24kWVEIh1DjF4je4zPRKroVn-XK1K/edit?usp=drive_link&ouid=113099589162390060304&rtpof=true&sd=true",
+      "notion_page_url": "https://www.notion.so/Evaluacion-uso-IA-29cb1a8ed8088023a0b5f3df3aa59ae1",
+      "summary": "Presenta las diferentes fases de la iniciativa orientada a obtener metricas que permitan la evaluacion del uso de asistentes IA"
+    },
+    {
+      "doc_id": "29cb1a8e-d808-8079-9258-f286506ec6cb",
+      "title": "Feature flags",
+      "version": "v1.0",
+      "area": "Sin área",
+      "type": "Documento",
+      "owner": "Technical Governance Team",
+      "tags": [],
+      "confidentiality": "Interno",
+      "last_updated": "2025-10-30",
+      "drive_link": "https://drive.google.com/file/d/1-yUvoP4pe464g2xpz41FBfxu8mHqKoaI/view?usp=sharing",
+      "notion_page_url": "https://www.notion.so/Feature-Flag-29cb1a8ed80880799258f286506ec6cb",
+      "summary": "Propuesta del procedimiento para el uso de feauter flags"
+    },
+    {
+      "doc_id": "29cb1a8e-d808-80c1-874c-ed6452b6fb11",
+      "title": "Flujo proceso de vulnerabilidades",
+      "version": "v1.0",
+      "area": "Sin área",
+      "type": "Documento",
+      "owner": "Technical Governance Team",
+      "tags": [],
+      "confidentiality": "Interno",
+      "last_updated": "2025-10-30",
+      "drive_link": "https://drive.google.com/file/d/1hdoHE-B5nEN_00Wu7U5yv3RQQLUHc7rM/view?usp=drive_link",
+      "notion_page_url": "https://www.notion.so/Flujo-proceso-vulnerabilidades-29cb1a8ed80880c1874ced6452b6fb11",
+      "summary": "Flujo del proceso de gestion de vulnerabilidades"
+    },
+    {
+      "doc_id": "29cb1a8e-d808-80c3-b58d-ec7a267f264a",
+      "title": "Team lead vs Scrum Master",
+      "version": "v1.0",
+      "area": "Sin área",
+      "type": "Documento",
+      "owner": "Technical Governance Team",
+      "tags": [],
+      "confidentiality": "Interno",
+      "last_updated": "2025-10-30",
+      "drive_link": "https://docs.google.com/presentation/d/1DIM6MdeD7s2QtKnR5rNiC2nQWdXhZkmG/edit?usp=sharing&ouid=113099589162390060304&rtpof=true&sd=true",
+      "notion_page_url": "https://www.notion.so/Team_Lead_vs_ScrumMaster-29cb1a8ed80880c3b58dec7a267f264a",
+      "summary": "Definicion del rol del Team Lead (Referente tecnico)"
+    }
+  ]
+}
